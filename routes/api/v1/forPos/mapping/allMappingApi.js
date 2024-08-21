@@ -3,7 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 const { AddMotorMapping, UpdateMotorMapping } = require("./motorMapping/AddMotorMapping");
 const GetAllMotorMappingWithFilter = require("./motorMapping/GetAllMotorMappingWithFilter");
-const { AddHealthMapping } = require("./healthMapping/AddhealthMapping");
+const { AddHealthMapping, UpdateHealthMapping } = require("./healthMapping/AddhealthMapping");
 
 // /api/v1/forPos/mapping/motor/saveOne
 router.post("/motor/saveOne",
@@ -35,6 +35,14 @@ router.post("/health/saveOne",
     passport.authenticate("jwt", { session: false }),
     async(req, res) => { 
         await AddHealthMapping(req,res);
+    }
+    )
+
+     // /api/v1/forPos/mapping/health/saveOne/id:
+router.post("/health/saveOne/id:",
+    passport.authenticate("jwt", { session: false }),
+    async(req, res) => { 
+        await UpdateHealthMapping(req,res);
     }
     )
 module.exports = router;
