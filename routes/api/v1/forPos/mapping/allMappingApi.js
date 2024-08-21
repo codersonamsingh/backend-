@@ -4,6 +4,7 @@ const passport = require("passport");
 const { AddMotorMapping, UpdateMotorMapping } = require("./motorMapping/AddMotorMapping");
 const GetAllMotorMappingWithFilter = require("./motorMapping/GetAllMotorMappingWithFilter");
 const { AddHealthMapping, UpdateHealthMapping } = require("./healthMapping/AddhealthMapping");
+const GetAllHealthMappingWithFilter = require("./healthMapping/GetAllhealthMappingWithFilter");
 
 // /api/v1/forPos/mapping/motor/saveOne
 router.post("/motor/saveOne",
@@ -43,6 +44,13 @@ router.post("/health/saveOne/id:",
     passport.authenticate("jwt", { session: false }),
     async(req, res) => { 
         await UpdateHealthMapping(req,res);
+    }
+    )
+      // /api/v1/forPos/mapping/getAllHealthMappingWith/:sortBy/:rowsPerPage/:page/:searchText
+router.get("/getAllHealthMappingWith/:sortBy/:rowsPerPage/:page/:searchText?",
+    passport.authenticate("jwt", { session: false }),
+    async(req, res) => { 
+        await GetAllHealthMappingWithFilter(req,res);
     }
     )
 module.exports = router;
