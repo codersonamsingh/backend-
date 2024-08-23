@@ -5,10 +5,12 @@ const { AddMotorMapping, UpdateMotorMapping } = require("./motorMapping/AddMotor
 const GetAllMotorMappingWithFilter = require("./motorMapping/GetAllMotorMappingWithFilter");
 const { AddHealthMapping, UpdateHealthMapping } = require("./healthMapping/AddhealthMapping");
 const GetAllHealthMappingWithFilter = require("./healthMapping/GetAllhealthMappingWithFilter");
+const { validateOnHealthMappingUpdate, validateOnHealthMappingCreate } = require("../../../../../validation/pos/offline/mapping/healthValidation");
 
 // /api/v1/forPos/mapping/motor/saveOne
 router.post("/motor/saveOne",
 passport.authenticate("jwt", { session: false }),
+validateOnHealthMappingCreate,
 async(req, res) => { 
     await AddMotorMapping(req,res);
 }
@@ -17,6 +19,7 @@ async(req, res) => {
 // /api/v1/forPos/mapping/motor/saveOne/:id
 router.post("/motor/saveOne/:id",
     passport.authenticate("jwt", { session: false }),
+    validateOnHealthMappingUpdate,
     async(req, res) => { 
         await UpdateMotorMapping(req,res);
     }
