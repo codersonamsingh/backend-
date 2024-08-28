@@ -7,11 +7,11 @@ const TravelMappingSchema = new Schema({
         type: String,
         required: true,
         maxlength: 50
-    },
-    product: {
-        type: String,
-        required: true,
-    },
+      },
+      product: {
+          type: String,
+          required: true,
+      },
     insurer: {
         type: String,
         required: true,

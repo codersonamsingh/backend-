@@ -6,6 +6,8 @@ const GetAllMotorMappingWithFilter = require("./motorMapping/GetAllMotorMappingW
 const { AddHealthMapping, UpdateHealthMapping } = require("./healthMapping/AddhealthMapping");
 const GetAllHealthMappingWithFilter = require("./healthMapping/GetAllhealthMappingWithFilter");
 const { validateOnHealthMappingUpdate, validateOnHealthMappingCreate } = require("../../../../../validation/pos/offline/mapping/healthValidation");
+const { AddTravelMapping, UpdateTravelMapping } = require("./travelMapping/AddtravelMapping");
+const GetAllTravelMappingWithFilter = require("./travelMapping/GetAlltravelMappingWithFilter");
 
 // /api/v1/forPos/mapping/motor/saveOne
 router.post("/motor/saveOne",
@@ -54,6 +56,33 @@ router.get("/getAllHealthMappingWith/:sortBy/:rowsPerPage/:page/:searchText?",
     passport.authenticate("jwt", { session: false }),
     async(req, res) => { 
         await GetAllHealthMappingWithFilter(req,res);
+    }
+    )
+
+    // /api/v1/forPos/mapping/travel/saveOne
+router.post("/travel/saveOne",
+    passport.authenticate("jwt", { session: false }),
+    //validateOnTravelMappingCreate,
+    async(req, res) => { 
+        await AddTravelMapping(req,res);
+    }
+    )
+
+    // /api/v1/forPos/mapping/travel/saveOne/:id
+router.post("/travel/saveOne/:id",
+    passport.authenticate("jwt", { session: false }),
+    
+    async(req, res) => { 
+        await  UpdateTravelMapping(req,res);
+    }
+    )
+
+     // /api/v1/forPos/mapping//getAllTravelMappingWith/:sortBy/:rowsPerPage/:page/:searchText
+router.get("/getAllTravelMappingWith/:sortBy/:rowsPerPage/:page/:searchText?",
+    passport.authenticate("jwt", { session: false }),
+    
+    async(req, res) => { 
+        await  GetAllTravelMappingWithFilter(req,res);
     }
     )
 module.exports = router;

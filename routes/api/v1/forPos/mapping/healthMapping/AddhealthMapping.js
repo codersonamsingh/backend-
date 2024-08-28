@@ -1,14 +1,14 @@
-const travelMapping = require("../../../../../../Models/Private/Pos/Mapping/travelMapping");
+const healthMapping = require("../../../../../../Models/Private/Pos/Mapping/HealthMapping");
 
-// @desc    Create a new travelMapping
-const AddtravelMapping = async (req, res) => {
+// @desc    Create a new healthMapping
+const AddhealthMapping = async (req, res) => {
     try {
-        const travelMappingObj = await gettravelMappingObj(req, "create");
-        let newtravelMapping = await new travelMapping(travelMappingObj).save();
+        const healthMappingObj = await gethealthMappingObj(req, "create");
+        let newhealthMapping = await new healthMapping(healthMappingObj).save();
         res.status(200).json({
-            message: "travelMapping Successfully Created",
+            message: "healthMapping Successfully Created",
             variant: "success",
-            commId: newtravelMapping._id,
+            commId: newhealthMapping._id,
         });
     } catch (error) {
         console.log(error);
@@ -19,11 +19,11 @@ const AddtravelMapping = async (req, res) => {
     }
 };
 
-// @desc    Update a travelMapping by ID
-const UpdatetravelMapping = async (req, res) => {
+// @desc    Update a healthMapping by ID
+const UpdatehealthMapping = async (req, res) => {
     try {
-        const travelMappingObj = await gettravelMappingObj(req, "update");
-        await updateMe(req, res, travelMappingObj);
+        const healthMappingObj = await gethealthMappingObj(req, "update");
+        await updateMe(req, res, healthMappingObj);
     } catch (error) {
         console.log(error);
         res.status(500).json({
@@ -33,14 +33,14 @@ const UpdatetravelMapping = async (req, res) => {
     }
 };
 
-const updateMe = async (req, res, updatetravelMapping) => {
+const updateMe = async (req, res, updatehealthMapping) => {
     try {
-        const updatedtravelMapping = await travelMapping.findOneAndUpdate(
+        const updatedhealthMapping = await healthMapping.findOneAndUpdate(
             { _id: req.params.id },
-            { $set: updatetravelMapping },
+            { $set: updatehealthMapping },
             { new: true }
         );
-        if (!updatedtravelMapping) {
+        if (!updatedhealthMapping) {
             return res.status(406).json({
                 message: "ID not found",
                 variant: "error",
@@ -59,38 +59,38 @@ const updateMe = async (req, res, updatetravelMapping) => {
     }
 };
 
-const gettravelMappingObj = async (req, type) => {
-    let newtravelMapping = {};
+const gethealthMappingObj = async (req, type) => {
+    let newhealthMapping = {};
 
     if (type === "create") {
-        newtravelMapping.createdBy = req.user.id;
-        newtravelMapping.partner = req.user.id;
-        newtravelMapping.reqNumber = await generateReqNumber();
+        newhealthMapping.createdBy = req.user.id;
+        newhealthMapping.partner = req.user.id;
+        newhealthMapping.reqNumber = await generateReqNumber();
     }
 
     // Setting all fields from the request body
-    if (req.body.product) newtravelMapping.product = req.body.product;
-    if (req.body.insurer) newtravelMapping.insurer = req.body.insurer;
-    if (req.body.plan) newtravelMapping.plan = req.body.plan;
-    if (req.body.prosperName) newtravelMapping.prosperName = req.body.prosperName;
-    if (req.body.prosperDob) newtravelMapping.prosperDob = req.body.prosperDob;
-    if (req.body.prosperMobileNumber) newtravelMapping.prosperMobileNumber = req.body.prosperMobileNumber;
-    if (req.body.prosperEmail) newtravelMapping.prosperEmail = req.body.prosperEmail;
-    if (req.body.applicationNumber) newtravelMapping.applicationNumber = req.body.applicationNumber;
-    if (req.body.policyNumber) newtravelMapping.policyNumber = req.body.policyNumber;
-    if (req.body.totalPremiumPaid) newtravelMapping.totalPremiumPaid = req.body.totalPremiumPaid;
-    if (req.body.sumInsured) newtravelMapping.sumInsured = req.body.sumInsured;
-    if (req.body.pincode) newtravelMapping.pincode = req.body.pincode;
-    if (req.body.city) newtravelMapping.city = req.body.city;
+    if (req.body.product) newhealthMapping.product = req.body.product;
+    if (req.body.insurer) newhealthMapping.insurer = req.body.insurer;
+    if (req.body.plan) newhealthMapping.plan = req.body.plan;
+    if (req.body.prosperName) newhealthMapping.prosperName = req.body.prosperName;
+    if (req.body.prosperDob) newhealthMapping.prosperDob = req.body.prosperDob;
+    if (req.body.prosperMobileNumber) newhealthMapping.prosperMobileNumber = req.body.prosperMobileNumber;
+    if (req.body.prosperEmail) newhealthMapping.prosperEmail = req.body.prosperEmail;
+    if (req.body.applicationNumber) newhealthMapping.applicationNumber = req.body.applicationNumber;
+    if (req.body.policyNumber) newhealthMapping.policyNumber = req.body.policyNumber;
+    if (req.body.totalPremiumPaid) newhealthMapping.totalPremiumPaid = req.body.totalPremiumPaid;
+    if (req.body.sumInsured) newhealthMapping.sumInsured = req.body.sumInsured;
+    if (req.body.pincode) newhealthMapping.pincode = req.body.pincode;
+    if (req.body.city) newhealthMapping.city = req.body.city;
 
     // Optional fields
-    if (req.body.policyDocument) newtravelMapping.policyDocument = req.body.policyDocument;
-    if (req.body.paymentProof) newtravelMapping.paymentProof = req.body.paymentProof;
+    if (req.body.policyDocument) newhealthMapping.policyDocument = req.body.policyDocument;
+    if (req.body.paymentProof) newhealthMapping.paymentProof = req.body.paymentProof;
 
     // Always update the updatedDate
-    newtravelMapping.updatedDate = new Date();
+    newhealthMapping.updatedDate = new Date();
 
-    return newtravelMapping;
+    return newhealthMapping;
 };
 
 // Generate request number
@@ -100,4 +100,4 @@ const generateReqNumber = async () => {
     return reqNumber;
 };
 
-module.exports = { AddtravelMapping, UpdatetravelMapping };
+module.exports = { AddhealthMapping, UpdatehealthMapping };
