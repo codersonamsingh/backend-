@@ -8,6 +8,7 @@ const GetAllHealthMappingWithFilter = require("./healthMapping/GetAllhealthMappi
 const { validateOnHealthMappingUpdate, validateOnHealthMappingCreate } = require("../../../../../validation/pos/offline/mapping/healthValidation");
 const { AddTravelMapping, UpdateTravelMapping } = require("./travelMapping/AddtravelMapping");
 const GetAllTravelMappingWithFilter = require("./travelMapping/GetAlltravelMappingWithFilter");
+const { validateOnTravelMappingUpdate, validateOnTravelMappingCreate } = require("../../../../../validation/pos/offline/mapping/travelValidation");
 
 // /api/v1/forPos/mapping/motor/saveOne
 router.post("/motor/saveOne",
@@ -62,7 +63,7 @@ router.get("/getAllHealthMappingWith/:sortBy/:rowsPerPage/:page/:searchText?",
     // /api/v1/forPos/mapping/travel/saveOne
 router.post("/travel/saveOne",
     passport.authenticate("jwt", { session: false }),
-    //validateOnTravelMappingCreate,
+    validateOnTravelMappingCreate,
     async(req, res) => { 
         await AddTravelMapping(req,res);
     }
@@ -71,7 +72,7 @@ router.post("/travel/saveOne",
     // /api/v1/forPos/mapping/travel/saveOne/:id
 router.post("/travel/saveOne/:id",
     passport.authenticate("jwt", { session: false }),
-    
+    validateOnTravelMappingUpdate,
     async(req, res) => { 
         await  UpdateTravelMapping(req,res);
     }
