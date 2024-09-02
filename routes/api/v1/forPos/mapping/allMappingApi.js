@@ -9,7 +9,8 @@ const { validateOnHealthMappingUpdate, validateOnHealthMappingCreate } = require
 const { AddTravelMapping, UpdateTravelMapping } = require("./travelMapping/AddtravelMapping");
 const GetAllTravelMappingWithFilter = require("./travelMapping/GetAlltravelMappingWithFilter");
 const { validateOnTravelMappingUpdate, validateOnTravelMappingCreate } = require("../../../../../validation/pos/offline/mapping/travelValidation");
-const { AddbusinessInsuranceMapping } = require("./businessInsuranceMapping/AddbusinessInsuranceMapping");
+const { AddbusinessInsuranceMapping, AddBusinessInsuranceMapping, UpdateBusinessInsuranceMapping } = require("./businessInsuranceMapping/AddbusinessInsuranceMapping");
+const GetAllBusinessInsuranceMappingWithFilter = require("./businessInsuranceMapping/GetAllbusinessInsuranceMappingWithFilter");
 
 // /api/v1/forPos/mapping/motor/saveOne
 router.post("/motor/saveOne",
@@ -91,9 +92,27 @@ router.get("/getAllTravelMappingWith/:sortBy/:rowsPerPage/:page/:searchText?",
     // /api/v1/forPos/mapping/businessInsurance/saveOne
 router.post("/businessInsurance/saveOne",
     passport.authenticate("jwt", { session: false }),
-    validateOnHealthMappingCreate,
+    // validateOnHealthMappingCreate,
     async(req, res) => { 
-        await AddbusinessInsuranceMapping(req,res);
+        await AddBusinessInsuranceMapping(req,res);
+    }
+    )
+
+   // /api/v1/forPos/mapping/businessInsurance/saveOne/:id
+router.post("/businessInsurance/saveOne/:id",
+    passport.authenticate("jwt", { session: false }),
+    // validateOnHealthMappingCreate,
+    async(req, res) => { 
+        await UpdateBusinessInsuranceMapping(req,res);
+    }
+    )
+
+     // /api/v1/forPos/mapping/getAllBusinessInsuranceMappingWith
+router.get("/getAllBusinessInsuranceMappingWith/:sortBy/:rowsPerPage/:page/:searchText?",
+    passport.authenticate("jwt", { session: false }),
+    // validateOnHealthMappingCreate,
+    async(req, res) => { 
+        await GetAllBusinessInsuranceMappingWithFilter(req,res);
     }
     )
 module.exports = router;
