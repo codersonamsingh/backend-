@@ -75,5 +75,4 @@ const validateOnBusinessInsuranceMappingDelete = async (req, res, next) => {
         return res.status(500).json({ message: "Error during businessInsuranceMapping deletion validation.", variant: "error" });
     }
 };
-
 module.exports = { validateOnBusinessInsuranceMappingCreate, validateOnBusinessInsuranceMappingUpdate, validateOnBusinessInsuranceMappingDelete };
