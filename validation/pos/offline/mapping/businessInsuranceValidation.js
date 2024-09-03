@@ -8,7 +8,7 @@ const businessInsuranceMappingSchema = Joi.object({
     product: Joi.string().optional().valid("sip", "credit", "debit"),
     insurer: Joi.string().optional(),
     plan: Joi.string().optional(),
-    businessName: Joi.string().optional().valid("School Bus", "Staff Bus"),
+    businessName: Joi.string().optional(),
     businessType: Joi.string().optional(),
     policyNumber: Joi.string().optional(),
     totalPremiumPaid: Joi.string().optional(),

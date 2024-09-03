@@ -11,6 +11,7 @@ const GetAllTravelMappingWithFilter = require("./travelMapping/GetAlltravelMappi
 const { validateOnTravelMappingUpdate, validateOnTravelMappingCreate } = require("../../../../../validation/pos/offline/mapping/travelValidation");
 const { AddbusinessInsuranceMapping, AddBusinessInsuranceMapping, UpdateBusinessInsuranceMapping } = require("./businessInsuranceMapping/AddbusinessInsuranceMapping");
 const GetAllBusinessInsuranceMappingWithFilter = require("./businessInsuranceMapping/GetAllbusinessInsuranceMappingWithFilter");
+const { validateOnBusinessInsuranceMappingCreate } = require("../../../../../validation/pos/offline/mapping/businessInsuranceValidation");
 
 // /api/v1/forPos/mapping/motor/saveOne
 router.post("/motor/saveOne",
@@ -92,7 +93,7 @@ router.get("/getAllTravelMappingWith/:sortBy/:rowsPerPage/:page/:searchText?",
     // /api/v1/forPos/mapping/businessInsurance/saveOne
 router.post("/businessInsurance/saveOne",
     passport.authenticate("jwt", { session: false }),
-    // validateOnHealthMappingCreate,
+    validateOnBusinessInsuranceMappingCreate,
     async(req, res) => { 
         await AddBusinessInsuranceMapping(req,res);
     }
